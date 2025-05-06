@@ -2,7 +2,6 @@
 {
     T value;
     BinNode<T>? Left;
-
     BinNode<T>? Right;
 
     public BinNode(T value)
@@ -16,63 +15,41 @@
         this.Left = Left;
         this.Right = Right;
     }
-    public void SetValue(T info)
-    {
-        this.value = info;
-    }
 
-    public T GetValue()
-    {
-        return value;
-    }
-    public void SetRight(T info)
-    {
-        Right.SetValue(info);
-    }
-    public void SetLeft(T info)
-    {
-        Left.SetValue(info);
-    }
-    public BinNode<T> GetRight()
-    {
-        return Right;
-    }
-
-    public BinNode<T> GetLeft()
-    {
-        return Left;
-    }
-    public void SetRight(BinNode<T> info)
-    {
-        Right = info;
-    }
-    public void SetLeft(BinNode<T> info)
-    {
-        Left = info;
-    }
+    public void SetValue(T info) => this.value = info;
+    public T GetValue() => value;
+    public void SetRight(T info) => Right?.SetValue(info);
+    public void SetLeft(T info) => Left?.SetValue(info);
+    public BinNode<T> GetRight() => Right;
+    public BinNode<T> GetLeft() => Left;
+    public void SetRight(BinNode<T> info) => Right = info;
+    public void SetLeft(BinNode<T> info) => Left = info;
 }
+
 class Program
 {
-    public static bool IsUpPath(BinNode<int> root)
+    public static bool IsUpPath(BinNode<int> node)
     {
-        BinNode<int> temp = root;
-        bool flag = true;
-        while (root.GetLeft() != null)
-        {
-            if (root.GetLeft().GetValue() > root.GetValue()) { flag = true; }
-            if (root.GetRight().GetValue() < root.GetValue()) { flag = flag || false; }
-
-            root = root.GetLeft();
-
-        }
-        while (root.GetRight() != null)
-        {
-            if (root.GetLeft().GetValue() < root.GetValue()) { flag = flag || false; }
-            if (root.GetRight().GetValue() < root.GetValue()) { flag = flag || false; }
-            root = root.GetRight();
-        }
-        return flag;
+        return IsUpPath(node, int.MinValue);
     }
+
+    private static bool IsUpPath(BinNode<int>? node, int prev)
+    {
+        if (node == null) return false;
+
+        int curr = node.GetValue();
+
+        if (curr <= prev)
+            return false;
+
+        // אם זה עלה – הצלחנו
+        if (node.GetLeft() == null && node.GetRight() == null)
+            return true;
+
+        // בדיקה האם יש מסלול עולה מאחת מההתפצלויות
+        return IsUpPath(node.GetLeft(), curr) || IsUpPath(node.GetRight(), curr);
+    }
+
     public static void Main()
     {
         BinNode<int> bin = new(5);
@@ -82,10 +59,12 @@ class Program
         bin.SetLeft(bin1);
         bin.SetRight(bin2);
         bin2.SetRight(bin3);
+
         Console.WriteLine("Root value: " + bin.GetValue());
         Console.WriteLine("Left value: " + bin.GetLeft().GetValue());
         Console.WriteLine("Right value: " + bin.GetRight().GetValue());
         Console.WriteLine("Right->Right value: " + bin.GetRight().GetRight().GetValue());
-        Console.WriteLine(IsUpPath(bin));
+
+        Console.WriteLine("Is there an increasing path? " + IsUpPath(bin));
     }
 }

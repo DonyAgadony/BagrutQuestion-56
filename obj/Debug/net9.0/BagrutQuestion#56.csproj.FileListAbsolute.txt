@@ -12,3 +12,4 @@ C:\Users\User\Desktop\DanielHamelech\BagrutQuestion#56\obj\Debug\net9.0\refint\B
 C:\Users\User\Desktop\DanielHamelech\BagrutQuestion#56\obj\Debug\net9.0\BagrutQuestion#56.pdb
 C:\Users\User\Desktop\DanielHamelech\BagrutQuestion#56\obj\Debug\net9.0\BagrutQuestion#56.genruntimeconfig.cache
 C:\Users\User\Desktop\DanielHamelech\BagrutQuestion#56\obj\Debug\net9.0\ref\BagrutQuestion#56.dll
+C:\Users\User\Desktop\DanielHamelech\BagrutQuestion#56\obj\Debug\net9.0\BagrutQuestion#56.sourcelink.json
